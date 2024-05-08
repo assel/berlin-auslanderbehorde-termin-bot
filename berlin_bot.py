@@ -15,9 +15,10 @@ from selenium.common.exceptions import TimeoutException
 system = system()
 
 default_time_sleep = 2
-max_time_resubmit = 60 * 15
+#max_time_resubmit = 60 * 15
+max_time_resubmit = 60 * 7
 
-sound_file = "./alarm.wav"
+sound_file = "alarm.wav"
 
 logging.basicConfig(
     format='%(asctime)s\t%(levelname)s\t%(message)s',
@@ -30,7 +31,6 @@ class WebDriver:
 
     def __enter__(self) -> webdriver.Chrome:
         logging.info("Open browser")
-
         # some stuff that prevents us from being locked out
         options = webdriver.ChromeOptions() 
         options.add_argument('--disable-blink-features=AutomationControlled')
@@ -47,7 +47,14 @@ class BerlinBot:
     def __init__(self, driver: webdriver.Chrome):
         self.driver = driver
         self._sound_file = os.path.join(os.getcwd(), "alarm.wav")
-        self._error_message = """Für die gewählte Dienstleistung sind aktuell keine Termine frei! Bitte"""
+        #de: self._error_message = """Für die gewählte Dienstleistung sind aktuell keine Termine frei! Bitte"""
+        #en:
+        self._error_message = """There are currently no dates available for the selected service! Please try again later."""
+        ### english success_message still not known - this is only speculation right now
+        #de: self._success_message = """Auswahl Uhrzeit"""
+        #en: 
+        self._success_message = """Select time"""
+        self._timeout_message = """Sitzungsende"""
         self.start_time = time.time()
 
     def get_wait_time(self, init:list = [10, 20]):
@@ -87,7 +94,9 @@ class BerlinBot:
 
     def enter_start_page(self):
         logging.info("Visit start page")
-        self.driver.get("https://otv.verwalt-berlin.de/ams/TerminBuchen")
+        #de: self.driver.get("https://otv.verwalt-berlin.de/ams/TerminBuchen")
+        #en:
+        self.driver.get("https://otv.verwalt-berlin.de/ams/TerminBuchen?lang=en")
 
         self.clickPATH('//*[@id="mainForm"]/div/div/div/div/div/div/div/div/div/div[1]/div[1]/div[2]/a')
 
@@ -100,26 +109,60 @@ class BerlinBot:
 
     def enter_form(self):
         
-        # select china
-        self.wait_for_text("Staatsangehörigkeit")
-        self.select('xi-sel-400', 'China')
-
-        # eine person
-        self.wait_for_text("Anzahl der Personen")
-        self.select('xi-sel-422', 'eine Person')
+        # select Israel
+        #de: self.wait_for_text("Staatsangehörigkeit")
+        #en:
+        self.wait_for_text("Citizenship")
+        ###Israel
+        self.select('xi-sel-400', 'Israel')
+        ###Russia
+        #self.select('xi-sel-400', 'Russian Federation')
+    
+        # one person
+        #de: self.wait_for_text("Anzahl der Personen")
+        #en:
+        self.wait_for_text("Number of applicants")
+        #de: self.select('xi-sel-422', 'eine Person')
+        #en:
+        self.select('xi-sel-422', 'one person')
 
         # no family
-        self.wait_for_text("Leben Sie in Berlin zusammen mit einem Familienangehörigen (z.B. Ehepartner, Kind)")
-        self.select('xi-sel-427', 'nein')
+        #de: self.wait_for_text("Leben Sie in Berlin zusammen mit einem Familienangehörigen (z.B. Ehepartner, Kind)")
+        #en:
+        self.wait_for_text("Do you live in Berlin with a family member")
+        #de: self.select('xi-sel-427', 'nein')
+        #en:
+        self.select('xi-sel-427', 'no')
 
-        # extend stay
-        self.clickPATH('//*[@id="xi-div-30"]/div[2]/label/p')
+        # first application
+        self.clickPATH('//*[@id="xi-div-30"]/div[1]/label/p')
 
-        # click employment
-        self.clickPATH('//*[@id="inner-479-0-2"]/div/div[3]/label/p')
+        # click employment -- ID depends on citizenship!
+        ###Israel 
+        self.clickPATH('//*[@id="inner-441-0-1"]/div/div[3]/label/p')
+        ### Russia
+        #self.clickPATH('//*[@id="inner-160-0-1"]/div/div[3]/label/p')
 
-        # on blue card
-        self.clickPATH('//*[@id="SERVICEWAHL_DE479-0-2-1-324659"]')
+        # b/c of Erwerbstaetigkeit -- ID depends on citizenship and preselected language!!
+        #de: self.clickPATH('//*[@id="SERVICEWAHL_DE441-0-1-1-328332"]')
+        #en:
+        ### Israel.Freelance (sect. 21 para. 5):
+        self.clickPATH('//*[@id="SERVICEWAHL_EN441-0-1-1-328332"]')
+        ### Israel.SelfEmployment (sect. 21):
+        #self.clickPATH('//*[@id="SERVICEWAHL_EN441-0-1-1-305249"]')
+        ### Israel.WorkVocationalTraining (sect. 18a):
+        #self.clickPATH('//*[@id="SERVICEWAHL_EN441-0-1-1-305304"]')
+        ### Israel.WorkAcademic (sect. 18b):
+        #self.clickPATH('//*[@id="SERVICEWAHL_EN441-0-1-1-329328"]')
+        
+        ### Russia.Freelance (sect. 21 para. 5):
+        #self.clickPATH('//*[@id="SERVICEWAHL_EN160-0-1-1-328332"]')
+        ### Russia.SelfEmployment (sect. 21):
+        #self.clickPATH('//*[@id="SERVICEWAHL_EN160-0-1-1-305249"]')
+        ### Russia.WorkVocationalTraining (sect. 18a):
+        #self.clickPATH('//*[@id="SERVICEWAHL_EN160-0-1-1-305304"]')
+        ### Russia.WorkAcademic (sect. 18b):
+        #self.clickPATH('//*[@id="SERVICEWAHL_EN160-0-1-1-329328"]')
 
         logging.info("Fill out form")
 
@@ -139,7 +182,7 @@ class BerlinBot:
             self._play_sound(self._sound_file, 10)
             time.sleep(5)
 
-    def wait_for_text(self, text: str, timeout: int = 30):
+    def wait_for_text(self, text: str, timeout: int = 60):
         while text not in self.driver.page_source:
             time.sleep(default_time_sleep)
             timeout -= 1
@@ -155,15 +198,31 @@ class BerlinBot:
             bot.tick_off_some_bullshit()
             bot.enter_form()
             time.sleep(default_time_sleep)
+            driver.save_screenshot("screenshot_form.png")
 
             # retry submit
             while time.time() - bot.start_time < max_time_resubmit:
                 bot.submit()
-                if "Auswahl Uhrzeit" in bot.driver.page_source:
+                logging.info("Current URL: " + driver.current_url)
+                if bot._timeout_message in bot.driver.page_source or driver.current_url == "https://otv.verwalt-berlin.de/ams/TerminBuchen/logout":
+                    ###Isopoda: debug print page source
+                    with open("./page_source_session_timeout.html", "w", encoding='utf-8') as f:
+                        f.write(driver.page_source)
+                    logging.info("Session timeout - starting over")
+                    bot.run_loop   
+                elif bot._success_message in bot.driver.page_source:
+                    ###Isopoda: debug print page source
+                    with open("./page_source_success.html", "w", encoding='utf-8') as f:
+                        f.write(driver.page_source)
                     bot._success()
                 elif bot._error_message in bot.driver.page_source:
-                    logging.info("Retry submission")
+                    ###Isopoda: debug print page source
+                    with open("./page_source_recent_error.html", "w", encoding='utf-8') as f:
+                        f.write(driver.page_source)
+                    logging.info("Retry submission - time passed: %.2f seconds." %(time.time() - bot.start_time))
+                  
                 else:
+                    logging.info("max_time_resubmit reached")
                     pass
 
     @staticmethod
@@ -176,13 +235,71 @@ class BerlinBot:
             time.sleep(5)
 
     # stolen from https://github.com/JaDogg/pydoro/blob/develop/pydoro/pydoro_core/sound.py
-    @staticmethod
+    """@staticmethod
     def _play_sound(sound, t = 0):
         logging.info("Play sound")
 
         from playsound import playsound
         playsound(sound_file)
-        time.sleep(t)
+        time.sleep(t)"""
+
+### ab hier Isopoda
+    @staticmethod
+    def _play_sound(sound, t=0):
+            if system == "Darwin":
+                #BerlinBot()._play_sound_osx(self._sound_file)
+                BerlinBot(WebDriver())._play_sound_osx(sound_file) 
+            elif system == "Windows":   
+                #BerlinBot()._play_sound_windows(self._sound_file)             
+                BerlinBot(WebDriver())._play_sound_windows(sound_file) 
+            elif system == "Linux":
+                BerlinBot(WebDriver())._play_sound_linux(sound_file)
+            else:
+                raise OSError("Sorry, I am not compatible with your OS (" + system +")")         
+
+    # stolen from https://github.com/JaDogg/pydoro/blob/develop/pydoro/pydoro_core/sound.py
+    @staticmethod
+    def _play_sound_osx(sound, block=True):
+        """
+        Utilizes AppKit.NSSound. Tested and known to work with MP3 and WAVE on
+        OS X 10.11 with Python 2.7. Probably works with anything QuickTime supports.
+        Probably works on OS X 10.5 and newer. Probably works with all versions of
+        Python.
+        Inspired by (but not copied from) Aaron's Stack Overflow answer here:
+        http://stackoverflow.com/a/34568298/901641
+        I never would have tried using AppKit.NSSound without seeing his code.
+        """
+        from AppKit import NSSound
+        from Foundation import NSURL
+        from time import sleep
+
+        logging.info("Play sound")
+        if "://" not in sound:
+            if not sound.startswith("/"):
+                from os import getcwd
+
+                sound = getcwd() + "/" + sound
+            sound = "file://" + sound
+        url = NSURL.URLWithString_(sound)
+        nssound = NSSound.alloc().initWithContentsOfURL_byReference_(url, True)
+        if not nssound:
+            raise IOError("Unable to load sound named: " + sound)
+        nssound.play()
+
+        if block:
+            sleep(nssound.duration())
+
+    @staticmethod
+    def _play_sound_windows(sound, block=True):
+        import winsound
+        logging.info("Play sound")
+        winsound.PlaySound(sound, winsound.SND_FILENAME)
+
+    @staticmethod
+    def _play_sound_linux(sound, block=True):
+        from playsound import playsound
+        logging.info("Play sound")
+        playsound(sound)        
 
 if __name__ == "__main__":
     BerlinBot.run_loop()

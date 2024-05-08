@@ -1,4 +1,7 @@
 chromedriver
+old_versions
+*.html
+*.png
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
