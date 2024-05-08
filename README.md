@@ -26,7 +26,7 @@ I am no software developer but merely something like a script kiddie.
 * Start the bot via `python3 berlin_bot.py` (Windows: `python.exe berlin_bot.py`
 
 ### venv and running the script for dummies
-Excample 1 -- macOS
+#### Excample 1 -- macOS
 
 `MacBook-Pro-3:~ assel$ pwd`
 
@@ -42,7 +42,7 @@ Excample 1 -- macOS
 
 `(venv) MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 berlin_bot.py`
 
-Excample 1 -- Windows
+#### Excample 2 -- Windows
 
 `C:\Users\assel\berlin-auslanderbehorde-termin-bot>python.exe -m venv venv`
 
