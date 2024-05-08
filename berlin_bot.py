@@ -34,7 +34,8 @@ class WebDriver:
         # some stuff that prevents us from being locked out
         options = webdriver.ChromeOptions() 
         options.add_argument('--disable-blink-features=AutomationControlled')
-        self._driver = webdriver.Chrome(os.path.join(os.getcwd(), "chromedriver"), options=options)
+        # debugging for windows: self._driver = webdriver.Chrome(os.path.join(os.getcwd(), "chromedriver"), options=options)
+        self._driver = webdriver.Chrome(options=options)
         self._driver.execute_script("Object.defineProperty(navigator, 'webdriver', {get: () => undefined})")
         self._driver.execute_cdp_cmd('Network.setUserAgentOverride', {"userAgent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.53 Safari/537.36'})
         return self._driver
