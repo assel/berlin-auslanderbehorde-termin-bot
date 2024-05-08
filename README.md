@@ -25,25 +25,33 @@ I am no software developer but merely something like a script kiddie.
 * Configure `berlin_bot.py` according to your needs (see below)
 * Start the bot via `python3 berlin_bot.py` (Windows: `python.exe berlin_bot.py`
 
-### venv for dummies
-Excample (how I run it on my macBook):
+### venv and running the script for dummies
+Excample 1 -- macOS
 
- `MacBook-Pro-3:~ assel$ pwd`
+`MacBook-Pro-3:~ assel$ pwd`
 
 `/Users/assel`
 
 `MacBook-Pro-3:~ assel$ cd berlin-auslanderbehorde-termin-bot/`
 
 `MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 -m venv venv`
-(Windows: python.exe -m venv venv)
 
 (Chromedriver belongs to venv/bin)
 
 `MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ . venv/bin/activate`
 
-(Windows: venv\Scripts\activate)
-
 `(venv) MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 berlin_bot.py`
+
+Excample 1 -- Windows
+
+`C:\Users\assel\berlin-auslanderbehorde-termin-bot>python.exe -m venv venv`
+
+(chromedriver.exe belongs to venv\bin)
+
+`C:\Users\assel\berlin-auslanderbehorde-termin-bot>venv\Scripts\activate`
+
+`(venv) C:\Users\assel\berlin-auslanderbehorde-termin-bot>python.exe berlin_bot.py`
+
 
 ## Configuration and Support
 
