@@ -2,11 +2,11 @@
 
 A fork of https://github.com/yinwu33/berlin-auslanderbehorde-termin-bot which itself is a fork of https://github.com/capital-G/berlin-auslanderbehorde-termin-bot.
 
-* Operates on the english version of the LEA's TerminBuchen-Page.
+* Operates on the English version of the LEA's TerminBuchen-Page.
 * Should run on macOS, Windows and Linux.
 * Preconfigured for: first application / Israel citizen / one person w/o family / Economic Activity / Freelance. Examples for other countries and purposes in comments.
 
-## Disclainer:
+## DisclaiMer:
 
 I am no software developer but merely something like a script kiddie.
 
@@ -18,22 +18,22 @@ I am no software developer but merely something like a script kiddie.
 * Setup a virtualenv via `virtualenv venv` and activate it (see below)
 * Install dependencies via `pip3 install -r requirements.$yourOS.txt`
 * Put a `chromedriver` binary from <https://chromedriver.chromium.org/downloads> into the directory. Those work for me:
-** linux64:	https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.155/linux64/chromedriver-linux64.zip
-** mac-x64:	https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.155/mac-x64/chromedriver-mac-x64.zip
-** win64:	https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.155/win64/chromedriver-win64.zip
+    * linux64:	https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.155/linux64/chromedriver-linux64.zip
+    * mac-x64:	https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.155/mac-x64/chromedriver-mac-x64.zip
+    * win64:	https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.155/win64/chromedriver-win64.zip
 * Configure `berlin_bot.py` according to your needs (see below)
 * Start the bot via `python3 berlin_bot.py`
 
 ### venv for dummies
 Excample (how I run it on my macBook):
-MacBook-Pro-3:~ assel$ pwd
-/Users/assel
-MacBook-Pro-3:~ assel$ cd berlin-auslanderbehorde-termin-bot/
-MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 -m venv venv
+> MacBook-Pro-3:~ assel$ pwd
+> /Users/assel
+> MacBook-Pro-3:~ assel$ cd berlin-auslanderbehorde-termin-bot/
+> MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 -m venv venv
 (Chromedriver belongs to venv/bin)
-MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ . venv/bin/activate
+> MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ . venv/bin/activate
 (Windows: venv\Scripts\activate)
-(venv) MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 berlin_bot.py
+> (venv) MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 berlin_bot.py
 
 ## Configuration and Support
 
