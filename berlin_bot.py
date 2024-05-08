@@ -212,10 +212,28 @@ class BerlinBot:
                         f.write(driver.page_source)
                     logging.info("Session timeout - starting over")
                     bot.run_loop   
-                elif bot._success_message in bot.driver.page_source:
+                elif bot._success_message in bot.driver.page_source \
+                    or (not 'Family reasons' in driver.page_source and not bot._error_message in driver.page_source):
+                    '''
+                    # stolen at https://github.com/rasi-coder/berlin-auslanderbehorde-termin-bot
+                    if not self._error_message in driver.page_source \
+                            and not 'Familiäre Gründe' in driver.page_source \
+                            and url_before != url_after:
+                        current_window = driver.current_window_handle
+                        driver.execute_script("alert(\"Focus window\")")
+                        driver.switch_to.alert.accept()
+                        driver.switch_to.window(current_window)
+                        driver.fullscreen_window()
+                        self._success()
+                    '''
                     ###Isopoda: debug print page source
                     with open("./page_source_success.html", "w", encoding='utf-8') as f:
                         f.write(driver.page_source)
+                    current_window = driver.current_window_handle
+                    driver.execute_script("alert(\"Focus window\")")
+                    driver.switch_to.alert.accept()
+                    driver.switch_to.window(current_window)
+                    driver.fullscreen_window()
                     bot._success()
                 elif bot._error_message in bot.driver.page_source:
                     ###Isopoda: debug print page source
