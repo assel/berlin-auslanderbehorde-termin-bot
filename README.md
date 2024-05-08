@@ -26,6 +26,7 @@ I am no software developer but merely something like a script kiddie.
 
 ### venv for dummies
 Excample (how I run it on my macBook):
+
  `MacBook-Pro-3:~ assel$ pwd`
 
 `/Users/assel`
