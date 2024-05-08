@@ -26,14 +26,14 @@ I am no software developer but merely something like a script kiddie.
 
 ### venv for dummies
 Excample (how I run it on my macBook):
-    MacBook-Pro-3:~ assel$ pwd
-    /Users/assel
-    MacBook-Pro-3:~ assel$ cd berlin-auslanderbehorde-termin-bot/
-    MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 -m venv venv
+ `MacBook-Pro-3:~ assel$ pwd`
+`/Users/assel`
+`MacBook-Pro-3:~ assel$ cd berlin-auslanderbehorde-termin-bot/`
+`MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 -m venv venv`
 (Chromedriver belongs to venv/bin)
-    MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ . venv/bin/activate
+`MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ . venv/bin/activate`
 (Windows: venv\Scripts\activate)
-(venv) MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 berlin_bot.py
+`(venv) MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 berlin_bot.py`
 
 ## Configuration and Support
 
