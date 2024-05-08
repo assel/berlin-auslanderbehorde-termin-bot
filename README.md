@@ -4,9 +4,9 @@ A fork of https://github.com/yinwu33/berlin-auslanderbehorde-termin-bot which it
 
 * Operates on the English version of the LEA's TerminBuchen-Page.
 * Should run on macOS, Windows and Linux.
-* Preconfigured for: first application / Israel citizen / one person w/o family / Economic Activity / Freelance. Examples for other countries and purposes in comments.
+* Preconfigured for: first application / Israel citizen / one person w/o family / economic activity / freelance. Examples for other countries and purposes in comments.
 
-## DisclaiMer:
+## Disclaimer:
 
 I am no software developer but merely something like a script kiddie.
 
@@ -26,20 +26,24 @@ I am no software developer but merely something like a script kiddie.
 
 ### venv for dummies
 Excample (how I run it on my macBook):
-> MacBook-Pro-3:~ assel$ pwd
-> /Users/assel
-> MacBook-Pro-3:~ assel$ cd berlin-auslanderbehorde-termin-bot/
-> MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 -m venv venv
+    MacBook-Pro-3:~ assel$ pwd
+    /Users/assel
+    MacBook-Pro-3:~ assel$ cd berlin-auslanderbehorde-termin-bot/
+    MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 -m venv venv
 (Chromedriver belongs to venv/bin)
-> MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ . venv/bin/activate
+    MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ . venv/bin/activate
 (Windows: venv\Scripts\activate)
-> (venv) MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 berlin_bot.py
+(venv) MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 berlin_bot.py
 
 ## Configuration and Support
 
 I do not give any kind of support and/or advice on how to configure this bot.
 You can read the [selenium docs](https://selenium-python.readthedocs.io/locating-elements.html#) and adjust `berlin_bot.py` in order to configure it according to your needs.
 Use Chrome:s developer extensions to find out the the names or paths of the elements the script is supposed to click on.
+
+## License
+
+AGPL-3.0
 
 # Original README.md below:
 
