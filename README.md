@@ -17,12 +17,13 @@ I am no software developer but merely something like a script kiddie.
 * `git clone https://github.com/assel/berlin-auslanderbehorde-termin-bot.git`
 * Setup a virtualenv via `virtualenv venv` and activate it (see below)
 * Install dependencies via `pip3 install -r requirements.$yourOS.txt`
+(Windows: pip install -r requirements.Windows.txt)
 * Put a `chromedriver` binary from <https://chromedriver.chromium.org/downloads> into the directory. Those work for me:
     * linux64:	https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.155/linux64/chromedriver-linux64.zip
     * mac-x64:	https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.155/mac-x64/chromedriver-mac-x64.zip
     * win64:	https://storage.googleapis.com/chrome-for-testing-public/124.0.6367.155/win64/chromedriver-win64.zip
 * Configure `berlin_bot.py` according to your needs (see below)
-* Start the bot via `python3 berlin_bot.py`
+* Start the bot via `python3 berlin_bot.py` (Windows: `python.exe berlin_bot.py`
 
 ### venv for dummies
 Excample (how I run it on my macBook):
@@ -33,6 +34,7 @@ Excample (how I run it on my macBook):
 `MacBook-Pro-3:~ assel$ cd berlin-auslanderbehorde-termin-bot/`
 
 `MacBook-Pro-3:berlin-auslanderbehorde-termin-bot assel$ python3 -m venv venv`
+(Windows: python.exe -m venv venv)
 
 (Chromedriver belongs to venv/bin)
 
